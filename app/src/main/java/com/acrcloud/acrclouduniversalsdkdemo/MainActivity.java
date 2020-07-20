@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements IACRCloudListener
     private ACRCloudConfig mConfig = null;
     private ACRCloudClient mClient = null;
 
+    private long time = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,12 +180,14 @@ public class MainActivity extends AppCompatActivity implements IACRCloudListener
     public void reset() {
         tv_time.setText("");
         mResult.setText("");
+        mVolume.setText("");
         mProcessing = false;
     }
 
     @Override
     public void onResult(ACRCloudResult results) {
         this.reset();
+        mVolume.setText(String.format("Time: %ss", time));
 
 	// If you want to save the record audio data, you can refer to the following codes.
 	/*
@@ -196,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements IACRCloudListener
 
         String result = results.getResult();
 
-        String tres = "\n";
+        String tres = "";
 
         try {
             JSONObject j = new JSONObject(result);
@@ -207,17 +211,33 @@ public class MainActivity extends AppCompatActivity implements IACRCloudListener
                 //
                 if (metadata.has("music")) {
                     JSONArray musics = metadata.getJSONArray("music");
-                    for(int i=0; i<musics.length(); i++) {
+                    // JSONObject album = musics.getJSONObject(8);
+                    // String alb = album.getString();
+                    for(int i=0; i < musics.length(); i++) {
                         JSONObject tt = (JSONObject) musics.get(i);
+
                         String title = tt.getString("title");
-                        JSONArray artistt = tt.getJSONArray("artists");
-                        JSONObject art = (JSONObject) artistt.get(0);
+
+                        JSONArray artistarr = tt.getJSONArray("artists");
+                        JSONObject art = (JSONObject) artistarr.get(0);
                         String artist = art.getString("name");
-                        tres = tres + (i+1) + ".  Title: " + title + "    Artist: " + artist + "\n";
+
+                        JSONObject albobj = tt.getJSONObject("album");
+                        String album = albobj.getString("name");
+
+                        String release = tt.getString("release_date");
+
+                        // tres = String.format("Title: %s\nArtist: %s\nAlbum: %s\nReleaseDate: %s\n", title, artist, album, release);
+
+                        if (title.equals(album)) {
+                            tres = String.format("Single %s by %s\nReleased on %s\n", title, artist, release);
+                        } else {
+                            tres = String.format("%s by %s from the album %s\nReleased on %s\n", title, artist, album, release);
+                        }
                     }
+                    //tres += result;
                 }
 
-                tres = tres + "\n\n" + result;
             }else{
                 tres = result;
             }
@@ -232,8 +252,9 @@ public class MainActivity extends AppCompatActivity implements IACRCloudListener
 
     @Override
     public void onVolumeChanged(double volume) {
-        long time = (System.currentTimeMillis() - startTime) / 1000;
-        mVolume.setText(getResources().getString(R.string.volume) + volume + "\n\nTime: " + time + " s");
+        String volumes = Double.toString(volume).substring(0, 4);
+        time = (System.currentTimeMillis() - startTime) / 1000;
+        mVolume.setText(String.format("Volume: %s\nTime: %ss", volumes, time));
     }
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
