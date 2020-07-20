@@ -5,9 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/ACRCloudUniversalSDK-master-ACRCloudUniversalSDKDemo.iml" filepath="$PROJECT_DIR$/ACRCloudUniversalSDK-master-ACRCloudUniversalSDKDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/ACRCloudUniversalSDKDemo.iml" filepath="$PROJECT_DIR$/ACRCloudUniversalSDKDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/ACRCloudUniversalSDKDemo-app.iml" filepath="$PROJECT_DIR$/app/ACRCloudUniversalSDKDemo-app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SoundSwarmBeta.iml" filepath="$PROJECT_DIR$/.idea/modules/SoundSwarmBeta.iml" group="SoundSwarmBeta" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/SoundSwarmBeta-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/SoundSwarmBeta-app.iml" group="SoundSwarmBeta/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/soundswarmbeta.iml" filepath="$PROJECT_DIR$/.idea/modules/soundswarmbeta.iml" group="soundswarmbeta" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/soundswarmbeta-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/soundswarmbeta-app.iml" group="soundswarmbeta/app" />
     </modules>
   </component>
 </project>

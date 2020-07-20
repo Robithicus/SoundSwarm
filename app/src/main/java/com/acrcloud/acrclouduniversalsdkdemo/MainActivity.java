@@ -227,12 +227,31 @@ public class MainActivity extends AppCompatActivity implements IACRCloudListener
 
                         String release = tt.getString("release_date");
 
+                        Integer length = tt.getInt("duration_ms");
+                        Integer min = 0;
+                        Integer sec = 0;
+                        while (length > 60000) {
+                            length -= 60000;
+                            min++;
+                        }
+                        while (length > 1000) {
+                            length -= 1000;
+                            sec++;
+                        }
+                        String secs;
+                        secs = sec.toString();
+                        if (sec < 10) {
+                            secs = sec.toString();
+                            secs = "0" + sec;
+                        }
+
+
                         // tres = String.format("Title: %s\nArtist: %s\nAlbum: %s\nReleaseDate: %s\n", title, artist, album, release);
 
                         if (title.equals(album)) {
-                            tres = String.format("Single %s by %s\nReleased on %s\n", title, artist, release);
+                            tres = String.format("Single %s by %s\nReleased on %s\n%s:%s long\n", title, artist, release, min, secs);
                         } else {
-                            tres = String.format("%s by %s from the album %s\nReleased on %s\n", title, artist, album, release);
+                            tres = String.format("%s by %s from the album %s\nReleased on %s\n%s:%s long\n", title, artist, album, release, min, secs);
                         }
                     }
                     //tres += result;
